@@ -3,18 +3,47 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.kulersabdi</groupId>
   <artifactId>WebShoppApp</artifactId>
-  <packaging>war</packaging>
+  <packaging>pom</packaging>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
   <version>1.0</version>
   <name>WebShoppApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.32</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- Servlet API -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JSP API -->
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <version>2.3.3</version>
+      <scope>provided</scope>
+    </dependency>
+
+
   </dependencies>
+
+
   <build>
     <finalName>WebShoppApp</finalName>
   </build>
