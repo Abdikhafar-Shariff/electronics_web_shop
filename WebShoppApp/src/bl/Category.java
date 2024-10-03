@@ -1,6 +1,6 @@
 package src.bl;
 
-public enum CategoryType {
+public enum Category {
     LAPTOPS("Laptops"),
     SMARTPHONES("Smartphones"),
     HEADPHONES("Headphones"),
@@ -10,7 +10,7 @@ public enum CategoryType {
     private final String displayName;
 
     // Konstruktor
-    CategoryType(String displayName) {
+    Category(String displayName) {
         this.displayName = displayName;
     }
     public String getDisplayName() {

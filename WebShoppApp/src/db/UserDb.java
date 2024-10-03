@@ -1,20 +1,24 @@
 package src.db;
 
 import src.bl.User;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDb {
     public static boolean isValidUser(User user) throws SQLException {
-        boolean isValid= false;
+        boolean isValid = false;
         Connection connection = DatabaseConnection.getConnection();
         String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
-        PreparedStatement preparedStatement =null;
-        ResultSet resultSet =null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,user.getEmail());
+            preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
             resultSet = preparedStatement.executeQuery();
             resultSet = preparedStatement.executeQuery();
@@ -61,6 +65,7 @@ public class UserDb {
 
         return isValid;
     }
+
     public static boolean isUserRegistered(User user) {
         boolean isRegistered = false;
         String query = "SELECT * FROM Users WHERE email = ?";
@@ -110,6 +115,7 @@ public class UserDb {
         }
         return isRegistered;
     }
+
     // Hämta alla användare
     public static List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
@@ -134,12 +140,13 @@ public class UserDb {
 
         return users; // Returnera listan med användare
     }
+
     public static void AddNewUser(User user) throws SQLException {
         // Kontrollera om användaren redan finns
-     if (isUserRegistered(user)) {
-           System.out.println("User already exists");
-           return;
-     }
+        if (isUserRegistered(user)) {
+            System.out.println("User already exists");
+            return;
+        }
         Connection connection = DatabaseConnection.getConnection();
         String query = "INSERT INTO users (user_id, username, password, email) VALUES (?, ?, ?, ?)";
 
@@ -177,9 +184,11 @@ public class UserDb {
             }
             if (connection != null) {
                 connection.setAutoCommit(true); // Återställ till standardläge
+                connection.close();
             }
         }
     }
+
     public static void deleteUser(User user) throws SQLException {
         Connection connection = DatabaseConnection.getConnection();
         String query = "DELETE FROM users WHERE email = ? AND password = ?";
