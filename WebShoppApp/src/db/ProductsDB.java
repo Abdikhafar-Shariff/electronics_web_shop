@@ -1,5 +1,6 @@
 package db;
 
+import bl.CategoryType;
 import bl.Products;
 
 import java.sql.Connection;
@@ -21,17 +22,20 @@ private ResultSet rst;
     public List<Products> getAllProducts(){
         List<Products> products = new ArrayList<>();
         try {
-            query = "select * from item";
+            query = "select * from items";
             pst = this.con.prepareStatement(query);
             rst = pst.executeQuery();
 
             while (rst.next()){
+                String categoryString = rst.getString("category");
+                CategoryType category = CategoryType.valueOf(categoryString); // Convert String to Enum
                 Products row = new Products();
                 row.setItem_id(rst.getInt("item_id"));
-                row.setName(rst.getString("name"));
+                row.setItem_name(rst.getString("item_name"));
+                row.setDescription(rst.getString("description"));
                 row.setPrice(rst.getString("price"));
-                row.setCategory_id(rst.getString("category_id"));
-                row.setImage_url(rst.getString("image_url"));
+                row.setDescription(rst.getString("description"));
+                row.setCategory(category);
 
                 products.add(row);
             }

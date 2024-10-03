@@ -1,6 +1,7 @@
-package src.db;
+package db;
 
-import src.bl.User;
+import db.DatabaseConnection;
+import bl.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -2,10 +2,12 @@ package bl;
 
 public class Products {
     private int item_id;
-    private String name;
+    private String item_name;
+    private String description;
     private String price;
-    private String category_id;
-    private String image_url;
+    private String quantity;
+    private CategoryType category;
+
 
     public Products() {
     }
@@ -18,14 +20,20 @@ public class Products {
         this.item_id = item_id;
     }
 
-    public Products(int item_id, String name, String price, String category_id, String image_url) {
-        this.item_id = item_id;
-        this.name = name;
-        this.price = price;
-        this.category_id = category_id;
-        this.image_url = image_url;
+    public String getItem_name() {
+        return item_name;
+    }
 
+    public void setItem_name(String item_name) {
+        this.item_name = item_name;
+    }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPrice() {
@@ -36,37 +44,19 @@ public class Products {
         this.price = price;
     }
 
-    public String getCategory_id() {
-        return category_id;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setCategory_id(String category_id) {
-        this.category_id = category_id;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public CategoryType getCategory() {
+        return category;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Products{" +
-                "category='" + category_id + '\'' +
-                ", id=" + item_id +
-                ", name='" + name + '\'' +
-                ", image='" + image_url + '\'' +
-                '}';
+    public void setCategory(CategoryType category) {
+        this.category = category;
     }
 }

@@ -1,8 +1,8 @@
-package src.bl;
+package bl;
 
-import src.db.AdministratorDb;
+import db.AdministratorDb;
 
-public class Administrator extends User{
+public class Administrator extends bl.User {
     public Administrator(String username, String password, String email){
         super(username,password,email);
     }
@@ -12,5 +12,9 @@ public class Administrator extends User{
     // Lägg till en ny administratör
     public boolean addAdministrator() {
         return AdministratorDb.addAdministrator(this);
+    }
+
+    public String getUsername() {
+        return "bnnn";
     }
 }

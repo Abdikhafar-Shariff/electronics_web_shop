@@ -1,6 +1,7 @@
-package src.db;
+package db;
 
-import src.bl.Administrator;
+import db.DatabaseConnection;
+import bl.Administrator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

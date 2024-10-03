@@ -10,6 +10,7 @@
 <head>
     <title>Order Page</title>
     <%@include file="includes/header.jsp"%>
+    <%@include file="includes/navbar.jsp"%>
 </head>
 <body>
 <h2>Hello World Worldi!</h2>

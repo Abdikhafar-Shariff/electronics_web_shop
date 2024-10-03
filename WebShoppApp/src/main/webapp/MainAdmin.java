@@ -1,5 +1,5 @@
-package src.main.webapp;
-import src.bl.Administrator;
+package main.webapp;
+import bl.Administrator;
 
 import java.sql.SQLException;
 import java.util.Scanner;

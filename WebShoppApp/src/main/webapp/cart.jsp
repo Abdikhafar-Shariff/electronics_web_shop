@@ -10,6 +10,7 @@
 <head>
     <title>Cart</title>
     <%@include file="includes/header.jsp"%>
+    <%@include file="includes/navbar.jsp"%>
 </head>
 <body>
 <h2>Hello World Worldi!</h2>

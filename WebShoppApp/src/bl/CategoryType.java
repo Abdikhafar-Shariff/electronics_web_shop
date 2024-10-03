@@ -1,4 +1,4 @@
-package src.bl;
+package bl;
 
 public enum CategoryType {
     LAPTOPS("Laptops"),

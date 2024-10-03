@@ -1,5 +1,5 @@
-package src.bl;
-import src.db.UserDb;
+package bl;
+import db.UserDb;
 import java.sql.SQLException;
 
 public class User {

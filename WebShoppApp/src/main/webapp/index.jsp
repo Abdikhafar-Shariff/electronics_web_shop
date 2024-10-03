@@ -12,9 +12,11 @@
 <head>
 <title>Web shop</title>
 <%@include file="includes/header.jsp"%>
+ <%@include file="includes/navbar.jsp"%>
 </head>
 <body>
 <%--<% out.println(DatabaseConnection.getConnection());%>--%>
+
 <div class="container">
     <div class="card-header my-3"> All Products</div>
     <div class="row">
@@ -23,11 +25,11 @@
                 for(Products p: products){%>
                      <div class="col-md-2 my-3">
         <div class="card w-100" style="width: 18rem;">
-            <img class="card-img-top" src="product_img/<%= p.getImage_url()%>" alt="Card image cap">
+            <img class="card-img-top" src="product_img/<%=p.getDescription()%>" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title"><%=p.getName()%></h5>
+                <h5 class="card-title"><%=p.getItem_name()%></h5>
                 <h6 class="price"><%=p.getPrice()%></h6>
-                <h6 class="category"><%=p.getCategory_id()%></h6>
+                <h6 class="category"><%=p.getCategory()%></h6>
                 <div class="mt-3 d-flex justify-content-between">
                     <a href="#" class="btn btn-primary">Add to Cart</a>
                 </div>
