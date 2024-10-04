@@ -1,5 +1,10 @@
 package servlets;
 
+import bl.User;
+import bl.UserHandler;
+import db.UserDb;
+import ui.UserInfo;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,67 +13,53 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
-@WebServlet("/login-servlet")
+@WebServlet("/user-login-servlet")
 public class LoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve form data
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
 
-        // Database connection
-        String jdbcUrl = "jdbc:mysql://localhost:3306/user_db";
-        String dbUser = "root"; // Change as per your database setup
-        String dbPassword = ""; // Change as per your database setup
-
-        PrintWriter out = response.getWriter();
         response.setContentType("text/html");
+        try(PrintWriter out = response.getWriter()) {
+            //out.println("this is a login servlet"); test to se it
 
-        try {
-            // Load JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Get user data submitted from the form
+            String userEmail = request.getParameter("login-email");
+            String password = request.getParameter("login-password");
 
-            // Establish the connection
-            Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+            //check if we get dqta from the form
+           // out.println(userEmail+password);
 
-            // Create SQL query to validate user
-            String sql = "SELECT * FROM users WHERE username=? AND password=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
-            stmt.setString(2, password);
+            // create new user with submitted email and password
+            UserInfo userInfo = new UserInfo();
+            userInfo.setEmail(userEmail);
+            userInfo.setPassword(password);
 
-            // Execute query
-            ResultSet rs = stmt.executeQuery();
 
-            // Check if user exists
-            if (rs.next()) {
-                // Valid user, create a session
-                HttpSession session = request.getSession();
-                session.setAttribute("user", username);
+            // use UserDb to is if user is valid
+            boolean isValid = false;
+            try {
+                isValid= UserHandler.isValidUser(userInfo);
 
-                // Redirect to welcome page
-                response.sendRedirect("welcome.jsp");
-            } else {
-                // Invalid login
-                out.println("<h3>Invalid username or password!</h3>");
-                out.println("<a href='login.jsp'>Try Again</a>");
+            } catch (Exception e) {
+                e.printStackTrace();
+                out.println("User is invalid");
+                return;
+            }
+            if(isValid){
+                // If valid, redirect to a index.jsp
+                request.getSession().setAttribute("Authorized",userInfo);
+                response.sendRedirect("index.jsp");
+            }else {
+                out.println("Invalid email and password");
+
             }
 
-            // Close resources
-            rs.close();
-            stmt.close();
-            conn.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
+
     }
 }

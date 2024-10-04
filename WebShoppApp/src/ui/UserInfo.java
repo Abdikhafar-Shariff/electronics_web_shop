@@ -1,35 +1,14 @@
-package bl;
-import db.UserDb;
-import java.sql.SQLException;
+package ui;
 
-public class User {
-    private int userId;
+public class UserInfo {
     private String username, password,email, address, phoneNumber;
-    public User(String username, String password, String email) {
+    public UserInfo(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public User() {
-    }
-
-    public boolean isValidUser() throws SQLException {
-        return UserDb.isValidUser(this);
-    }
-    public static void deleterUser(String username, String password, String email) throws SQLException {
-        User user = new User(username, password, email);
-        if(UserDb.isValidUser(user)){
-            UserDb.deleteUser(user);
-        }
-    }
-    // Getters och setters
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public UserInfo() {
     }
 
     public String getUsername() {
