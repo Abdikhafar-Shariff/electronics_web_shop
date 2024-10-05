@@ -109,14 +109,6 @@ public class Cart {
         this.cartId = cartId;
     }
 
-//        public static List<CartItem> getCartItemsList () {
-//            return cartItemsList;
-//        }
-//
-//        public static void setCartItemsList (List < CartItem > cartItemsList) {
-//            Cart.cartItemsList = cartItemsList;
-//        }
-
     public float getSum() {
         return totalSum;
     }
