@@ -5,7 +5,8 @@ import java.sql.SQLException;
 public class User {
     private int userId;
     private String username, password,email, address, phoneNumber;
-    public User(String username, String password, String email) {
+    public User(int userId, String username, String password, String email) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -17,12 +18,7 @@ public class User {
     public boolean isValidUser() throws SQLException {
         return UserDb.isValidUser(this);
     }
-    public static void deleterUser(String username, String password, String email) throws SQLException {
-        User user = new User(username, password, email);
-        if(UserDb.isValidUser(user)){
-            UserDb.deleteUser(user);
-        }
-    }
+
     // Getters och setters
     public int getUserId() {
         return userId;
