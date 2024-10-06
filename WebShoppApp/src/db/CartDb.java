@@ -78,19 +78,4 @@ public class CartDb {
         return false;
 
     }
-
-    // Metod för att uppdatera summan i varukorgen
-   /* public static void updateSum(float newSum, User user) {
-        Connection connection = DatabaseConnection.getConnection();
-        String query = "UPDATE Cart SET total_sum = ? WHERE user_id = ?";
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setFloat(1, newSum);
-            statement.setInt(2, user.getUserId());
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }*/
-
 }
