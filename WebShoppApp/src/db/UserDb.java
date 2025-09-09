@@ -7,6 +7,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDb {
+    public static User getUserByCredentials(User user) throws SQLException {
+        Connection connection = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
+        PreparedStatement preparedStatement =null;
+        ResultSet resultSet =null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
+
+            // Om resultSet innehåller resultat, då finns användaren och vi jämför uppgifterna
+            if (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
+                String dbUserName= resultSet.getString("username");
+                String dbEmail = resultSet.getString("email");
+                String dbPassword = resultSet.getString("password");
+
+                return new User(userId, dbUserName, dbPassword, dbEmail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error checking user validity", e);
+        } finally {
+            // Stäng ResultSet
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            // Stäng PreparedStatement
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            // Stäng Connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
     public static boolean isValidUser(User user) throws SQLException {
         boolean isValid= false;
         Connection connection = DatabaseConnection.getConnection();
@@ -121,6 +175,7 @@ public class UserDb {
             // Iterera genom resultatet och skapa User-objekt
             while (resultSet.next()) {
                 User user = new User(
+                        resultSet.getInt("user_id"),
                         resultSet.getString("username"),
                         resultSet.getString("password"),
                         resultSet.getString("email")

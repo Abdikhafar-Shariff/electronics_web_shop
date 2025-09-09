@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
             userInfo.setEmail(userEmail);
             userInfo.setPassword(password);
 
-
             // use UserDb to is if user is valid
             boolean isValid = false;
             try {
@@ -51,6 +50,9 @@ public class LoginServlet extends HttpServlet {
             }
             if(isValid){
                 // If valid, redirect to a index.jsp
+                User user = UserHandler.getUserByCredentials(userInfo);
+                userInfo.setUserId(user.getUserId());
+
                 request.getSession().setAttribute("Authorized",userInfo);
                 response.sendRedirect("index.jsp");
             }else {
@@ -59,6 +61,8 @@ public class LoginServlet extends HttpServlet {
             }
 
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }

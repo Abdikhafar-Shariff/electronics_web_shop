@@ -10,6 +10,7 @@
 <%@ page import="ui.CartItemInfo" %>
 <%@ page import="bl.CartHandler" %>
 <%@ page import="ui.CartInfo" %>
+<%@ page import="ui.UserInfo" %>
 <html>
 <head>
     <title>Cart</title>
@@ -25,8 +26,8 @@
             float totalSum = 0;
 
             // Fetch the cart items from the request attribute
-            CartInfo cartInfo = new CartInfo();
-            int cartId = cartInfo.getCartId();
+            UserInfo userInfo = (UserInfo)request.getSession().getAttribute("Authorized");
+            int cartId = CartHandler.getCart(userInfo.getUserId()).getCartId();
             List<CartItemInfo> cartItems = CartHandler.getAllCartItem(cartId);
 
             if (cartItems != null && !cartItems.isEmpty()) {
@@ -65,7 +66,7 @@
 </div>
 </form>
 </td>
-<td <a class="btn btn-sm btn-danger"></a> Remove</td>
+<td><a class="btn btn-sm btn-danger">Remove</a></td>
 </tr>
 <%
 }
@@ -79,7 +80,7 @@
             %>
 </tbody>
 </table>
-</d>
+</div>
 
 <%@include file="includes/footer.jsp"%>
 </body>

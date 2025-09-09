@@ -1,11 +1,14 @@
 package ui;
 
 public class UserInfo {
+    private int userId;
     private String username, password,email, address, phoneNumber;
-    public UserInfo(String username, String password, String email) {
+
+    public UserInfo(int userId, String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.userId = userId;
     }
 
     public UserInfo() {
@@ -49,5 +52,13 @@ public class UserInfo {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

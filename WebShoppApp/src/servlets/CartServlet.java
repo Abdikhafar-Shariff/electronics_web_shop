@@ -94,7 +94,7 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user"); // Assuming you have a user object in session
+        User user = (User) session.getAttribute("Authorized"); // Assuming you have a user object in session
         if (user == null) {
             // If the user is not logged in, redirect to login page
             response.sendRedirect("login.jsp");
