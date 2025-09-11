@@ -18,13 +18,14 @@ public class CartHandler {
         return CartDb.getCart(user_id);
     }
 
-    public static List<CartItemInfo> getAllCartItem(int cartId) throws SQLException {
-        // get all cart items from the database
-        List<CartItem> cartItemsList = CartItemDb.getCartItems(cartId);
-        List<CartItemInfo> cartItemInfoList = new ArrayList<>();
+    public static List<CartItem> getAllCartItem(List<CartItem> cartItemList) throws SQLException {
+        // Fetch detailed item information from the database using getCartItems
+        List<CartItem> detailedCartItems = CartItemDb.getCartItems(cartItemList);
+        List<CartItem> cartItemInfoList = new ArrayList<>();
 
-        for (CartItem cartItem : cartItemsList) {
-            CartItemInfo cartItemInfo = new CartItemInfo(
+        // Convert detailed CartItem objects to CartItemInfo objects
+        for (CartItem cartItem : detailedCartItems) {
+            CartItem cartItemInfo = new CartItem(
                     cartItem.getItemId(),
                     cartItem.getItemName(),
                     cartItem.getDescription(),
@@ -33,13 +34,15 @@ public class CartHandler {
             );
             cartItemInfoList.add(cartItemInfo);
         }
-       return cartItemInfoList;
+
+        return cartItemInfoList;
     }
+
 
     public static List<CartItemInfo> addItemToCart(int itemId, int userId) throws SQLException {
         // Initialize a list to hold CartItemInfo objects
         List<CartItemInfo> cartItemInfoList = new ArrayList<>();
-
+        List<CartItem> cartItemList = new ArrayList<>();
         // Fetch the item from the database
         Item item = Item.getItemById(itemId);
         if (item.getQuantity() <= 0) {
@@ -49,13 +52,13 @@ public class CartHandler {
 
         // Get the user's cart ID
         int cartId = Cart.getCart(userId).getCartId();
-        List<CartItem> cartItemsList = Cart.getAllCartItems(cartId);
+        List<CartItem> cartItemsList = Cart.getAllCartItems(cartItemList);
 
         // Look for an existing item in the cart
         CartItem existingCartItem = Cart.FindCartItem(itemId);
         if (existingCartItem == null) {
             // Create a new CartItemInfo object
-            CartItemInfo newCartItemInfo = new CartItemInfo(itemId, item.getItemName(), item.getDescription(), item.getPrice(), 1);
+            CartItemInfo newCartItemInfo = new CartItemInfo( item.getItemId(),item.getItemName(), item.getDescription(), item.getPrice(), 1);
             // Add new cart item to the database and the list
             CartItemDb.addItemToCart(cartId, itemId, 1);
             cartItemInfoList.add(newCartItemInfo);

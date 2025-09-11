@@ -11,7 +11,8 @@ public class ItemInfo {
     private int quantity;
     private Category category;
 
-    public ItemInfo(String itemName, String description, String image_url, int price, int quantity, Category category) {
+    public ItemInfo(int itemId,String itemName, String description, String image_url, int price, int quantity, Category category) {
+        this.itemId = itemId;
         this.itemName = itemName;
         this.description = description;
         this.image_url = image_url;

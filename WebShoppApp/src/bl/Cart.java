@@ -4,6 +4,7 @@ import db.CartDb;
 import db.CartItemDb;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
@@ -24,6 +25,7 @@ public class Cart {
     }
 
     public static List<CartItem> addItemToCart(int itemId, int userId) throws SQLException {
+        List<CartItem> cartItemList = new ArrayList<>();
         Item item = Item.getItemById(itemId);
         if (item.getQuantity() <= 0) {
             System.out.println("The selected item is currently out of stock.");
@@ -31,7 +33,7 @@ public class Cart {
         }
 
         int cartId = Cart.getCart(userId).getCartId();
-        cartItemsList = getAllCartItems(cartId);
+        cartItemsList = getAllCartItems(cartItemList);
 
         // Leta upp om varan redan finns i varukorgen
         CartItem existingCartItem = FindCartItem(itemId);
@@ -57,8 +59,8 @@ public class Cart {
         return null;
     }
 
-    public static List<CartItem> getAllCartItems(int cartId) throws SQLException {
-        return CartItemDb.getCartItems(cartId);
+    public static List<CartItem> getAllCartItems(List<CartItem> cartItem) throws SQLException {
+        return CartItemDb.getCartItems(cartItem);
     }
 
     public  float calculateTotalSum() {

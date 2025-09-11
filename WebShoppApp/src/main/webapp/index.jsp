@@ -1,9 +1,14 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="bl.ItemHandler" %>
 <%@ page import="java.util.List" %>
 <%@ page import="ui.ItemInfo" %>
+<%@ page import="ui.UserInfo" %>
 
 <%
+    // Check if the user is logged in
+    UserInfo user = (UserInfo) session.getAttribute("user");
+
 
     List<ItemInfo> items = ItemHandler.getAllItems();
 %>
@@ -72,7 +77,7 @@
                                 <h6 class="category"><%=p.getCategory()%></h6>
                                 <h6 class="price">$<%=p.getPrice()%></h6>
                                 <div class="mt-3 d-flex justify-content-between">
-                                    <a href="cart?action=add&itemId=<%= p.getItemId() %>" class="btn btn-primary">Add to Cart</a>
+                                <a href="add-to-cart?item_id=<%= p.getItemId() %>" class="btn btn-blue">Add to Cart</a>
                                 </div>
                             </div>
                         </div>

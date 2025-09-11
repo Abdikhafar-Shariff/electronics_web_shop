@@ -4,8 +4,8 @@ import java.sql.*;
 public class DatabaseConnection {
     private String dbName = "webshop";
     private String jdbcUrl = "jdbc:mysql://localhost:3306/" + dbName;
-    private String username = "root";
-    private String password = "Robbledizo@4545";
+    private String username = "webshop_user";
+    private String password = "Password123";
 
     private Connection connection = null;
     private static DatabaseConnection instance = null;

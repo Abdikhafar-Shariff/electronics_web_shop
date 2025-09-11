@@ -6,6 +6,11 @@ public class CartItem extends Item{
         super(itemName, description, price,quantity);
         setCartId(cartId);
     }
+
+
+    public CartItem() {
+    }
+
     public int getCartId() {
         return cartId;
     }

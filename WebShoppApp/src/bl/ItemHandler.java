@@ -47,6 +47,7 @@ public static List<ItemInfo>getAllItems() throws SQLException {
     // Loop through each Item and convert it into an ItemInfo object
     for (Item item : itemList) {
         ItemInfo itemInfo = new ItemInfo(
+                item.getItemId(),
                 item.getItemName(),
                 item.getDescription(),
                 item.getImage_url(),
@@ -61,4 +62,7 @@ public static List<ItemInfo>getAllItems() throws SQLException {
 
    return itemInfoList;
 }
+    public static Item getItemById(int itemId) throws SQLException {
+        return ItemDb.getItemById(itemId);
+    }
 }

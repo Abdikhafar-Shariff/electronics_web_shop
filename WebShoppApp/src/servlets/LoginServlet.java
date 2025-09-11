@@ -1,8 +1,6 @@
 package servlets;
 
-import bl.User;
 import bl.UserHandler;
-import db.UserDb;
 import ui.UserInfo;
 
 import javax.servlet.ServletException;

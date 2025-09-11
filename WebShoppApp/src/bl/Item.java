@@ -18,7 +18,18 @@ public class Item {
     public Item() {
     }
 
-    public Item( String itemName, String description, String image_url, int price,
+    public Item(int itemId, String itemName, String description, String image_url,
+                int price, int quantity, Category category) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.description = description;
+        this.image_url = image_url;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+    }
+
+    public Item(String itemName, String description, String image_url, int price,
                 int quantity, Category category) {
 
         this.itemName = itemName;
@@ -135,5 +146,18 @@ public class Item {
 
     public void increaseQuantity(int number) {
         this.quantity += number;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", itemName='" + itemName + '\'' +
+                ", description='" + description + '\'' +
+                ", image_url='" + image_url + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", category=" + category +
+                '}';
     }
 }

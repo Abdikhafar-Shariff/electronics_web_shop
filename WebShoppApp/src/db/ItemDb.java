@@ -122,19 +122,23 @@ public class ItemDb {
     }
     public static Item getItemById(int itemId) throws SQLException {
         Connection connection = DatabaseConnection.getConnection();
-        String query = "SELECT item_name, description,image_url, price, quantity, category FROM items WHERE item_id = ?";
+        String query = "SELECT item_id,item_name, description,image_url, price, quantity, category FROM items WHERE item_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, itemId);
             ResultSet result = statement.executeQuery();
-            String categoryString = result.getString("category");
-            Category category = Category.valueOf(categoryString); // Convert String back to Enum
+
             if (result.next()) {
-                return new Item(result.getString(1),
-                        result.getString(2),
-                        result.getString(3),
-                        result.getInt(4),
-                        result.getInt(5),
-                        category);
+                String categoryString = result.getString("category");
+                Category category = Category.valueOf(categoryString); // Convert String back to Enu
+                return new Item(
+                        result.getInt("item_id"),
+                        result.getString("item_name"),
+                        result.getString("description"),
+                        result.getString("image_url"),
+                        result.getInt("price"),
+                        result.getInt("quantity"),
+                        category
+                );
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

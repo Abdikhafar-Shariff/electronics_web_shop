@@ -1,4 +1,4 @@
-package servlets;
+/*package servlets;
 
 import bl.CartHandler;
 import bl.User;
@@ -72,7 +72,7 @@ import java.util.List;
 }*/
 
 
-import bl.CartHandler;
+/*import bl.CartHandler;
 import bl.User;
 import ui.CartItemInfo;
 
@@ -90,45 +90,61 @@ import java.util.List;
 public class CartServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user"); // Assuming you have a user object in session
+        User user = (User) session.getAttribute("user");
+
         if (user == null) {
-            // If the user is not logged in, redirect to login page
+            // If the user is not logged in, redirect to the login page
             response.sendRedirect("login.jsp");
             return;
         }
 
         try {
-            if ("add".equals(action)) {
-                int itemId = Integer.parseInt(request.getParameter("itemId"));
-                List<CartItemInfo> cartItemInfoList = CartHandler.addItemToCart(itemId, user.getUserId());
-                session.setAttribute("cartItems", cartItemInfoList);
-                request.setAttribute("cartItems", cartItemInfoList);
-                request.getRequestDispatcher("cart.jsp").forward(request, response); // Forward to cart view
-            }
-            else if ("view".equals(action)) {
-                int cartId = CartHandler.getCart(user.getUserId()).getCartId();
-                List<CartItemInfo> cartItems = CartHandler.getAllCartItem(cartId);
-                request.setAttribute("cartItems", cartItems);
-                request.getRequestDispatcher("cart.jsp").forward(request, response); // Forward to cart view
-            }
-            // You can add more actions here (like remove, update, etc.)
+            // Get the user's cart and display it
+            int cartId = CartHandler.getCart(user.getUserId()).getCartId();
+            List<CartItemInfo> cartItems = CartHandler.getAllCartItem(cartId);
+            request.setAttribute("cartItems", cartItems);
+            request.getRequestDispatcher("cart.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid item ID");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred while viewing the cart.");
         }
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response); // Handle GET requests as POST
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            // If the user is not logged in, redirect to the login page
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        try {
+            switch (action) {
+                case "add":
+                    int addItemId = Integer.parseInt(request.getParameter("itemId"));
+                    CartHandler.addItemToCart(addItemId, user.getUserId());
+                    break;
+
+                default:
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+                    return;
+            }
+
+            // After modifying the cart, redirect to the doGet() to display the updated cart
+            response.sendRedirect("cart"); // Calls doGet() method to refresh the cart view
+
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error or invalid item ID.");
+        }
     }
-}
+}*/
 
