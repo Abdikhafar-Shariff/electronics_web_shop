@@ -20,6 +20,7 @@
             // Assuming the cartList (List<CartItem>) is stored in session
             List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartList");
             List<CartItem> cartItemInfoList = null;
+            double totalPrice = 0;
 
             // If the cart list exists, call getAllCartItem() to fetch detailed info
             if (cartItems != null && !cartItems.isEmpty()) {
@@ -27,6 +28,10 @@
                     // Get detailed cart items info
                     cartItemInfoList = CartHandler.getAllCartItem(cartItems);
                     session.setAttribute("cartList", cartItems);
+                      for (CartItem item : cartItemInfoList) {
+                          totalPrice += item.getPrice() * item.getQuantity();
+                      }
+
                 } catch (SQLException e) {
                     e.printStackTrace(); // handle the exception appropriately
                 }
@@ -35,7 +40,7 @@
             // If the cart is not empty, display the items
             if (cartItems != null && !cartItems.isEmpty()) {
         %>
-        <h3>Total Price: Kr </h3><a class="mx-3 btn btn-primary" href="#"> Check Out</a></div>
+        <h3>Total Price: Kr <%= totalPrice %> </h3><a class="mx-3 btn btn-primary" href="#"> Check Out</a></div>
         <table class="table table-light">
             <thead>
                 <tr>

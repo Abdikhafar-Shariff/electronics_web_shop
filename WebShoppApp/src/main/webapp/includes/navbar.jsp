@@ -21,9 +21,6 @@
                     <a class="nav-link" href="cart.jsp">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="orders.jsp">Orders</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="login.jsp">Login</a>
                 </li>
             </ul>

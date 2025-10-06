@@ -58,16 +58,15 @@
             padding: 15px;
         }
     </style>
-    <%@include file="includes/header.jsp"%>
-    <%@include file="includes/navbar.jsp"%>
 </head>
 <body>
-
+ <%@include file="includes/header.jsp"%>
+ <%@include file="includes/navbar.jsp"%>
 <div class="container">
     <div class="card-header my-3">All Products</div>
     <div class="row card-container">
         <%
-            if(!items.isEmpty()) {
+            if(items != null && !items.isEmpty()) {
                 for(ItemInfo p: items) { %>
                     <div class="col-md-4">
                         <div class="card">
